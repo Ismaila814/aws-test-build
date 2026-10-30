@@ -1,0 +1,29 @@
+version 
+
+phases
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo Installing dependencies...
+      - pip install -r requirements.txt
+    
+    pre_build:
+      commands:
+        - echo Running tests...
+
+        
+  build:
+    commands:
+      - echo Building...
+      - python manage.py test
+      - pytest --junitxml=reports/test-results.xml --tb=short
+      - echo Build completed successfully.
+
+  artifacts:
+    files:
+      - '**/*'
+    discard-paths: yes
+    base-directory: reports
+  
+    
